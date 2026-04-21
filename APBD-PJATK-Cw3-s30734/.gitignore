@@ -1,0 +1,89 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/contentModel.xml
+/.idea.APBD-PJATK-Cw3-s30734.iml
+/projectSettingsUpdater.xml
+# Ignored default folder with query files
+/queries/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+
+# ========================
+# .NET / C# Build Output
+# ========================
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ========================
+# NuGet
+# ========================
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ========================
+# Visual Studio / MSBuild
+# ========================
+.vs/
+*.ncb
+*.sap
+*.Cache
+*.aps
+*.pch
+*.sbr
+*.tlb
+*.tlh
+*.bak
+*.log
+
+# ========================
+# Rider specific
+# ========================
+.idea/
+*.DotSettings.user
+
+# ========================
+# Test Results
+# ========================
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+[Tt]est[Rr]esult*/
+
+# ========================
+# Publish / Deploy
+# ========================
+publish/
+**/publish/
+launchSettings.json
+
+# ========================
+# OS generated
+# ========================
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ========================
+# Environment & Secrets
+# ========================
+.env
+.env.*
+*.pfx
+*.p12
+appsettings.Development.json
+secrets.json
