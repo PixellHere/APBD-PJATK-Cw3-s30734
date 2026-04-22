@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "MTAz8gIpL/w=",
+  "dgSpecHash": "uvrMfk+Vxi8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kacper\\RiderProjects\\APBD-PJATK-Cw3-s30734\\APBD-PJATK-Cw3-s30734\\APBD-PJATK-Cw3-s30734.csproj",
+  "projectFilePath": "/Users/kacper/RiderProjects/APBD-PJATK-Cw3-s30734/APBD-PJATK-Cw3-s30734/APBD-PJATK-Cw3-s30734.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Kacper\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.1\\microsoft.aspnetcore.openapi.10.0.1.nupkg.sha512",
-    "C:\\Users\\Kacper\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512"
+    "/Users/kacper/.nuget/packages/microsoft.aspnetcore.openapi/10.0.1/microsoft.aspnetcore.openapi.10.0.1.nupkg.sha512",
+    "/Users/kacper/.nuget/packages/microsoft.openapi/2.0.0/microsoft.openapi.2.0.0.nupkg.sha512"
   ],
   "logs": []
 }
