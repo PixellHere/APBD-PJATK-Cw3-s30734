@@ -57,8 +57,8 @@ public class RoomService : IRoomService
     {
         return TrainingCenterData.Rooms
             .Where(room => (room.Capacity >= (minCapacity ?? 0)) 
-                           && (room.HasProjector == (hasProjector ?? true)) 
-                           && (room.IsActive == (isActive  ?? true)))
+                           && (room.HasProjector == (hasProjector ?? room.HasProjector)) 
+                           && (room.IsActive == (isActive  ?? room.IsActive)))
             .Select(room => new RoomDTO
             {
                 Id = room.Id,
@@ -135,4 +135,6 @@ public class RoomService : IRoomService
         
         return "Removed room id "+id;
     }
+    
+    //TO DO: Validation methods
 }
