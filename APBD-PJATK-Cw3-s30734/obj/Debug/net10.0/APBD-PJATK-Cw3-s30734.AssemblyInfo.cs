@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("APBD-PJATK-Cw3-s30734")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c2f37a5d5816eab68a9c8bbefe10b747c84f6a5a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a9dd0e6c9c1fa9210100c3831932c66a16a8e2a7")]
 [assembly: System.Reflection.AssemblyProductAttribute("APBD-PJATK-Cw3-s30734")]
 [assembly: System.Reflection.AssemblyTitleAttribute("APBD-PJATK-Cw3-s30734")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

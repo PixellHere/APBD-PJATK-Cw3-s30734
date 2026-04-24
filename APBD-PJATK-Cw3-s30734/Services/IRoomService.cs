@@ -10,5 +10,6 @@ public interface IRoomService
     IEnumerable<RoomDTO> GetByFiltr(int? minCapacity, bool? hasProjector, bool? isActive);
     RoomDTO AddRoom(CreateRoomDTO room);
     RoomDTO? UpdateRoom(int id, UpdateRoomDTO room);
-    string? RemoveRoom(int id);
+    bool? RemoveRoom(int id);
+    bool IsRoomInUse(int id);
 }

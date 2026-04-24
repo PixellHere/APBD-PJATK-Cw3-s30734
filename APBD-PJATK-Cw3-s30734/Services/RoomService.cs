@@ -124,7 +124,7 @@ public class RoomService : IRoomService
         };
     }
 
-    public string? RemoveRoom(int id)
+    public bool? RemoveRoom(int id)
     {
         var deleteRoom = TrainingCenterData.Rooms.FirstOrDefault(r => r.Id == id);
         
@@ -133,8 +133,11 @@ public class RoomService : IRoomService
         
         TrainingCenterData.Rooms.Remove(deleteRoom);
         
-        return "Removed room id "+id;
+        return true;
     }
     
-    //TO DO: Validation methods
+    public bool IsRoomInUse(int id)
+    {
+        return TrainingCenterData.Reservations.Any(r => (r.RoomId == id) && (r.Date >= DateTime.Now));
+    }
 }

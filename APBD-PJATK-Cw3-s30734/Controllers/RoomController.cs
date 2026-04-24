@@ -34,12 +34,16 @@ public class RoomsController(IRoomService service) : ControllerBase
     [HttpPost]
     public IActionResult CreateRoom([FromBody] CreateRoomDTO room)
     {
-        return Ok(service.AddRoom(room));
+        var createdRoom = service.AddRoom(room);
+        return CreatedAtAction(nameof(GetAllRooms), new {id = createdRoom.Id}, createdRoom);
     }
 
     [HttpPut("{id:int}")]
     public IActionResult UpdateRoom([FromRoute] int id, [FromBody] UpdateRoomDTO room)
     {
+        if (service.IsRoomInUse(id))
+            return Conflict("Room has reservations, wait for it to be free");
+        
         var updateRoom = service.UpdateRoom(id, room);
         return updateRoom == null ? NotFound() : Ok(updateRoom);
     }
@@ -47,7 +51,10 @@ public class RoomsController(IRoomService service) : ControllerBase
     [HttpDelete("{id:int}")]
     public IActionResult DeleteRoom([FromRoute] int id)
     {
+        if (service.IsRoomInUse(id))
+            return Conflict("Room has reservations, wait for it to be free");
+        
         var deleteRoom = service.RemoveRoom(id);
-        return deleteRoom == null ? NotFound() : Ok(deleteRoom);
+        return deleteRoom == null ? NotFound() : NoContent();
     }
 }
