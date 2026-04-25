@@ -35,8 +35,12 @@ public class ReservationsService : IReservationsService
                                      && (dto.RoomId == (roomId ?? dto.RoomId)));
     }
 
-    public ReservationDTO AddReservation(CreateReservationDTO reservation)
+    public ReservationDTO? AddReservation(CreateReservationDTO reservation)
     {
+        var room = TrainingCenterData.Rooms.FirstOrDefault(room => room.Id == reservation.RoomId);
+        if(room == null)
+            return null;
+        
         var newReservation = new Reservation
         {
             Id = TrainingCenterData.Reservations.Max(r => r.Id) + 1,
@@ -103,6 +107,27 @@ public class ReservationsService : IReservationsService
         
         return "Successfully removed reservation";
     }
-    
-    //TO DO: Validation methods
+
+    public bool ValidateNewReservation(CreateReservationDTO reservation)
+    {
+        if(reservation.Date < DateTime.Today)
+            return false;
+        
+        if (reservation.EndTime <  reservation.StartTime)
+            return false;
+        
+        var requestedRoom = TrainingCenterData.Rooms.FirstOrDefault(room => room.Id == reservation.RoomId);
+        if (requestedRoom != null && !requestedRoom.IsActive)
+            return false;
+        
+        return true;
+    }
+
+    public bool IsRoomInUse(int id, DateTime date, DateTime startTime, DateTime endTime)
+    {
+        var isRoomReserved = TrainingCenterData.Reservations.Any(r=> (r.RoomId == id) 
+                                                                     && (r.Date == date) 
+                                                                     && ((r.EndTime > startTime) || (r.StartTime < endTime)));
+        return isRoomReserved;
+    }
 }
