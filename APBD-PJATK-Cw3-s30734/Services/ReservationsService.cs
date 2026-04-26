@@ -28,9 +28,9 @@ public class ReservationsService : IReservationsService
         return GetAll().FirstOrDefault(r => r.Id == id);
     }
 
-    public IEnumerable<ReservationDTO> GetByFilter(DateTime? date, ReservationStatus? status, int? roomId)
+    public IEnumerable<ReservationDTO> GetByFilter(DateOnly? date, ReservationStatus? status, int? roomId)
     {
-        return GetAll().Where(dto => (dto.Date == (date ?? DateTime.MinValue))
+        return GetAll().Where(dto => (!date.HasValue || dto.Date == date.Value)
                                      && (dto.Status == (status ?? dto.Status))
                                      && (dto.RoomId == (roomId ?? dto.RoomId)));
     }
@@ -96,7 +96,7 @@ public class ReservationsService : IReservationsService
         };
     }
 
-    public string? RemoveReservation(int id)
+    public bool? RemoveReservation(int id)
     {
         var reservationToRemove = TrainingCenterData.Reservations.FirstOrDefault(reservation => reservation.Id == id);
 
@@ -105,12 +105,12 @@ public class ReservationsService : IReservationsService
 
         TrainingCenterData.Reservations.Remove(reservationToRemove);
         
-        return "Successfully removed reservation";
+        return true;
     }
 
     public bool ValidateNewReservation(CreateReservationDTO reservation)
     {
-        if(reservation.Date < DateTime.Today)
+        if(reservation.Date < DateOnly.FromDateTime(DateTime.Today))
             return false;
         
         if (reservation.EndTime <  reservation.StartTime)
@@ -123,9 +123,25 @@ public class ReservationsService : IReservationsService
         return true;
     }
 
-    public bool IsRoomInUse(int id, DateTime date, DateTime startTime, DateTime endTime)
+    public bool ValidateExistingReservation(UpdateReservationDTO reservation)
     {
-        var isRoomReserved = TrainingCenterData.Reservations.Any(r=> (r.RoomId == id) 
+        if(reservation.Date < DateOnly.FromDateTime(DateTime.Today))
+            return false;
+        
+        if (reservation.EndTime <  reservation.StartTime)
+            return false;
+        
+        var requestedRoom = TrainingCenterData.Rooms.FirstOrDefault(room => room.Id == reservation.RoomId);
+        if (requestedRoom != null && !requestedRoom.IsActive)
+            return false;
+        
+        return true;
+    }
+
+    public bool IsRoomInUse(int? reservationId, int roomId, DateOnly date, TimeOnly startTime, TimeOnly endTime)
+    {
+        var isRoomReserved = TrainingCenterData.Reservations.Any(r=> (r.RoomId == roomId)
+                                                                     && (!reservationId.HasValue ||  r.Id != reservationId.Value)
                                                                      && (r.Date == date) 
                                                                      && ((r.EndTime > startTime) || (r.StartTime < endTime)));
         return isRoomReserved;

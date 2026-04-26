@@ -138,6 +138,6 @@ public class RoomService : IRoomService
     
     public bool IsRoomInUse(int id)
     {
-        return TrainingCenterData.Reservations.Any(r => (r.RoomId == id) && (r.Date >= DateTime.Now));
+        return TrainingCenterData.Reservations.Any(r => (r.RoomId == id) && (r.Date >= DateOnly.FromDateTime(DateTime.Now)));
     }
 }
