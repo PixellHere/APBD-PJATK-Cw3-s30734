@@ -116,6 +116,9 @@ public class ReservationsService : IReservationsService
         if (reservation.EndTime <  reservation.StartTime)
             return false;
         
+        if(reservation.Topic == ""  || reservation.OrganizerName == "")
+            return false;
+        
         var requestedRoom = TrainingCenterData.Rooms.FirstOrDefault(room => room.Id == reservation.RoomId);
         if (requestedRoom != null && !requestedRoom.IsActive)
             return false;
@@ -129,6 +132,9 @@ public class ReservationsService : IReservationsService
             return false;
         
         if (reservation.EndTime <  reservation.StartTime)
+            return false;
+        
+        if(reservation.Topic == ""  || reservation.OrganizerName == "")
             return false;
         
         var requestedRoom = TrainingCenterData.Rooms.FirstOrDefault(room => room.Id == reservation.RoomId);

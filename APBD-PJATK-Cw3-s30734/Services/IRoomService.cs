@@ -12,4 +12,5 @@ public interface IRoomService
     RoomDTO? UpdateRoom(int id, UpdateRoomDTO room);
     bool? RemoveRoom(int id);
     bool IsRoomInUse(int id);
+    bool IsRoomValid(string name, int buildingCode, int capacity);
 }

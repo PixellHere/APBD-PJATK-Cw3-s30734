@@ -140,4 +140,12 @@ public class RoomService : IRoomService
     {
         return TrainingCenterData.Reservations.Any(r => (r.RoomId == id) && (r.Date >= DateOnly.FromDateTime(DateTime.Now)));
     }
+
+    public bool IsRoomValid(string name, int buildingCode, int capacity)
+    {
+        if (name == "" || buildingCode == 0 || capacity < 1)
+            return false;
+        
+        return true;
+    }
 }

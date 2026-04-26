@@ -24,7 +24,7 @@ public class ReservationsController(IReservationsService service) : ControllerBa
     {
         var reservation = service.GetById(id);
         
-        return reservation == null ? NotFound() : Ok(reservation);
+        return reservation == null ? NotFound("Reservation does not exist") : Ok(reservation);
     }
 
     [HttpPost]
@@ -34,11 +34,11 @@ public class ReservationsController(IReservationsService service) : ControllerBa
             return Conflict("Room is in use at this time");
 
         if (!service.ValidateNewReservation(reservation))
-            return Conflict("Reservation is not valid");
+            return BadRequest("Reservation is not valid");
 
         var newReservation = service.AddReservation(reservation);
         
-        return newReservation != null ? Ok(newReservation) : BadRequest("Room does not exist");
+        return newReservation != null ? CreatedAtAction(nameof(GetById),new {id = newReservation.Id}, newReservation) : NotFound("Room does not exist");
     }
 
     [HttpPut("{id:int}")]
@@ -48,17 +48,17 @@ public class ReservationsController(IReservationsService service) : ControllerBa
             return Conflict("Room is in use at this time");
         
         if (!service.ValidateExistingReservation(reservation))
-            return Conflict("Reservation is not valid");
+            return BadRequest("Reservation is not valid");
 
         var updatedReservation = service.UpdateReservation(id, reservation);
         
-        return updatedReservation != null ? Ok(updatedReservation) : BadRequest("Room does not exist");
+        return updatedReservation != null ? Ok(updatedReservation) : NotFound("Room does not exist");
     }
 
     [HttpDelete("{id:int}")]
     public IActionResult DeleteReservation([FromRoute]int id)
     {
         var deletedRoom = service.RemoveReservation(id);
-        return deletedRoom != null ? NoContent() : BadRequest("Room does not exist");
+        return deletedRoom != null ? NoContent() : NotFound("Room does not exist");
     }
 }
